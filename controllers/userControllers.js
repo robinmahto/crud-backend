@@ -20,8 +20,19 @@ exports.createUser = async(req, res) => {
       }
       // inserting into db
       const user = await userModels.create({name, email})
+      user.save();
       res.status(201).json({success: true, message: "user created sucessfully", user})
     } catch (error) {
       console.log(error.message)
     }
+}
+
+
+exports.getUsers = async(req, res) => {
+   try {
+      const users = await userModels.find();
+      res.status(200).json({success: true, users})
+   } catch (error) {
+      console.log(error.message)
+   }
 }
