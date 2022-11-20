@@ -45,3 +45,13 @@ exports.editUsers = async (req, res) => {
       res.status(401).json({success : false, message: error.message})
    }
 }
+
+exports.deleteUsers = async (req, res) => {
+   try {
+      const users = await userModels.findByIdAndDelete(req.params.id)
+      res.status(200).json({success : true, message:"user Deleted successfully", users})
+   } catch (error) {
+      console.log(error.message)
+      res.status(401).json({success : false, message: error.message})
+   }
+}
