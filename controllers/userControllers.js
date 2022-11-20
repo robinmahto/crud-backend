@@ -27,12 +27,21 @@ exports.createUser = async(req, res) => {
     }
 }
 
-
 exports.getUsers = async(req, res) => {
    try {
       const users = await userModels.find();
       res.status(200).json({success: true, users})
    } catch (error) {
       console.log(error.message)
+   }
+}
+
+exports.editUsers = async (req, res) => {
+   try {
+      const users = await userModels.findByIdAndUpdate(req.params.id, req.body)
+      res.status(200).json({success : true, message:"user updated successfully", users})
+   } catch (error) {
+      console.log(error.message)
+      res.status(401).json({success : false, message: error.message})
    }
 }
